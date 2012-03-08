@@ -3,7 +3,10 @@ express = require \express
 
 htts = express.createServer ()
 htts.configure !->
-  htts.use "/" express.static "pub"
+  htts.use "/preview/" express.static "pub"
+
+htts.get "/" !(req, res)->
+  res.redirect "http://launch.hashstamp.co"
 
 htts.listen conf.net.port, conf.net.host, !->
   console.log "Hashstamp WebClient"
