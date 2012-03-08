@@ -1,8 +1,9 @@
+conf = require \./conf
 express = require \express
 
 htts = express.createServer ()
 htts.configure !->
   htts.use "/" express.static "pub"
 
-htts.listen 8080 !->
+htts.listen conf.net.port, conf.net.host, !->
   console.log "Hashstamp WebClient"
