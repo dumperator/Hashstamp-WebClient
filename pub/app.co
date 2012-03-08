@@ -1,0 +1,52 @@
+$ !->
+  console.log "DOM loaded"
+
+  # frames
+  frames = [\about \contact \add \browse]
+  currentFrame = \about
+
+  # show only the first frame
+  for frame of frames
+    $ ".frame\##frame" .hide ()
+  $ ".frame\##currentFrame" .show ()
+
+  # switch frames
+  switchFrame = !(newFrame)->
+    $ ".frame\##currentFrame" .hide ()
+    $ ".frame\##newFrame" .show ()
+    $ "\#go-#currentFrame" .removeClass \active
+    $ "\#go-#newFrame" .addClass \active
+    currentFrame := newFrame
+
+  # set up the menu actions
+  for frame of frames
+    let
+      $ "\#go-#frame" .click !->
+        switchFrame frame
+
+  # set up the file hashing
+  $ \#files .change !(ev)->
+    files = ev.target.files
+    console.log "Hashing #{files.length} files..."
+    for file of files
+      wh = Whirlpool.init ()
+      fr = new FileReader ()
+      fr.onloadstart = !-> console.log "FileReader onloadstart"
+      fr.onabort = !-> console.log "FileReader onabort"
+      fr.onload = !-> console.log "FileReader onload"
+      fr.onerror = !->
+        alert "There was an error hashing your files.  Your browser may be unsupported."
+      fr.onprogress = !(ev)->
+        console.log "FileReader onprogress"
+        wh.add ev.target.result
+      fr.onloadend = !->
+        console.log "FileReader onloadend"
+        hash = wh.finalize ()
+        $ "\#add .list > tbody" .prepend $ "<tr><td><table><tbody>" +
+          "<tr><th>Filename:</th><td>#{file.name}</td></tr>" +
+          "<tr><th>Time:</th><td>#{Date ()}</td></tr>" +
+            "<tr><th>Hash:</th><td>#{hash.substring 0 16}...</td></tr>" +
+          "<tbody></table></td></tr>"
+      fr.readAsBinaryString file
+
+  console.log "app loaded"

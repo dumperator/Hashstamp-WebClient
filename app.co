@@ -1,0 +1,8 @@
+express = require \express
+
+htts = express.createServer ()
+htts.configure !->
+  htts.use "/" express.static "pub"
+
+htts.listen 8080 !->
+  console.log "Hashstamp WebClient"

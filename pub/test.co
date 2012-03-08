@@ -1,0 +1,14 @@
+fs = require \fs
+crypto = require \crypto
+
+if process.argv.length < 3
+  process.exit 1
+filename = process.argv.2
+
+hash = crypto.createHash \whirlpool
+file = fs.createReadStream filename
+
+file.on \data !(data)->
+  hash.update data
+file.on \end !->
+  console.log hash.digest \hex
