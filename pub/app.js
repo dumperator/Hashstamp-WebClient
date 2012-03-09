@@ -27,6 +27,8 @@
       for (__i = 0, __len = files.length; __i < __len; ++__i) {
         file = files[__i];
         wh = Whirlpool.init();
+        wh.add(Date() + "\r\n");
+        wh.add($('#files-additional').text() + "\r\n");
         fr = new FileReader();
         fr.onloadstart = __fn;
         fr.onabort = __fn1;

@@ -30,6 +30,8 @@ $ !->
     console.log "Hashing #{files.length} files..."
     for file of files
       wh = Whirlpool.init ()
+      wh.add "#{Date ()}\r\n"
+      wh.add "#{$ \#files-additional .text ()}\r\n"
       fr = new FileReader ()
       fr.onloadstart = !-> console.log "FileReader onloadstart"
       fr.onabort = !-> console.log "FileReader onabort"
