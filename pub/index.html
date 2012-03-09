@@ -20,7 +20,7 @@
     <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
     <style type="text/css">
       body {
-        padding-top: 60px;
+        padding-top: 120px;
         padding-bottom: 40px;
       }
 
@@ -52,7 +52,7 @@
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
-          <a class="brand" href="#">Hashstamp</a>
+          <a class="brand" href="#"><img src="img/header.png" alt="Hashstamp"/></a>
           <div class="nav-collapse">
             <ul class="nav">
               <li id="go-about" class="active"><a href="#about">About</a></li>
@@ -103,7 +103,10 @@
 
     <div class="container frame" id="add">
       <h1>Add</h1>
-      <input type="file" id="files"/>
+      <p>Drag your files into the hashstamp box to get them hashstamped.  You can also click the hash to browse.</p>
+      <div id="files-back">
+        <input type="file" id="files"/>
+      </div>
       <table class="list table table-bordered table-striped">
         <thead>
           <tr>
